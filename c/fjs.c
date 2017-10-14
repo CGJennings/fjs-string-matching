@@ -32,22 +32,26 @@ void makebetap( const CTYPE* p, int m ) {
     int i = 0, j = betap[0] = -1;
 
     while( i < m ) {
-        while( (j > -1) && (p[i] != p[j]) )
+        while( (j > -1) && (p[i] != p[j]) ) {
             j = betap[j];
-        if( p[++i] == p[++j] )
+        }
+        if( p[++i] == p[++j] ) {
             betap[i] = betap[j];
-        else
+        } else {
             betap[i] = j;
+        }
     }
 }
 
 void makeDelta( const CTYPE* p, int m ) {
     int i;
 
-    for( i = 0; i < ALPHA; ++i )
+    for( i = 0; i < ALPHA; ++i ) {
         Delta[i] = m + 1;
-    for( i = 0; i < m; ++i )
+    }
+    for( i = 0; i < m; ++i ) {
         Delta[ p[i] ] = m - i;
+    }
 }
 
 void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
@@ -64,21 +68,25 @@ void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
             }
             j = 0;
             i = ip - mp;
-            while( (j < mp) && (x[i] == p[j]) )
-                { ++i; ++j; }
+            while( (j < mp) && (x[i] == p[j]) ) {
+                ++i; ++j;
+            }
             if( j == mp ) {
                 OUTPUT( i-mp );
                 ++i; ++j;
             }
-            if( j <= 0 )
+            if( j <= 0 ) {
                 ++i;
-            else
+            } else {
                 j = beta[j];
+            }
         } else {
-            while( (j < m) && (x[i] == p[j]) )
-                { ++i; ++j; }
-            if( j == m )
+            while( (j < m) && (x[i] == p[j]) ) {
+                ++i; ++j;
+            }
+            if( j == m ) {
                 OUTPUT( i-m );
+            }
             j = beta[j];
         }
         ip = i + mp - j;
@@ -89,12 +97,14 @@ int main( int argc, char** argv ) {
     int m;
 
     if( argc == 3 ) {
-        if( ( m = strlen( argv[2] )) <= MAX_PATLEN )
+        if( (m = strlen( argv[2] )) <= MAX_PATLEN ) {
             FJS( (CTYPE*) argv[2], m,
                  (CTYPE*) argv[1], strlen( argv[1] ) );
-        else
+        } else {
             printf( "Recompile with MAX_PATLEN >= %d\n", m );
-    } else
+        }
+    } else {
         printf( "Usage: %s text pattern\n", argv[0] );
+    }
     return 0;
 }

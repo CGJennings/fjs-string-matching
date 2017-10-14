@@ -6,7 +6,7 @@
    For details see <https://cgjennings.ca/articles/fjs.html>.
 
    Christopher G. Jennings.
-   See LICENSE.md for license details (simplified BSD).
+   See LICENSE.md for license details (MIT license).
 */
 
 #include <stdio.h>

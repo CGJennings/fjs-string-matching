@@ -3,7 +3,6 @@
 
    FJS is a very fast algorithm for finding every occurrence
    of a string p of length m in a string x of length n.
-
    For details see <https://cgjennings.ca/articles/fjs.html>.
 
    Christopher G. Jennings.
@@ -16,6 +15,7 @@
 typedef unsigned char CTYPE;   // type of alphabet letters
 
 // For large alphabets, such as Unicode, see the Web page above
+// for techniques to improve performance
 
 #define ALPHA      (256)       // alphabet size
 #define MAX_PATLEN (100)       // maximum pattern length
@@ -56,7 +56,7 @@ void makeDelta( const CTYPE* p, int m ) {
 
 void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
     if( m < 1 ) return;
-    makebeta( p, m );
+    makebetap( p, m );
     makeDelta( p, m );
 
     int i = 0, j = 0, mp = m-1, ip = mp;
@@ -78,7 +78,7 @@ void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
             if( j <= 0 ) {
                 ++i;
             } else {
-                j = beta[j];
+                j = betap[j];
             }
         } else {
             while( (j < m) && (x[i] == p[j]) ) {
@@ -87,7 +87,7 @@ void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
             if( j == m ) {
                 output( i-m );
             }
-            j = beta[j];
+            j = betap[j];
         }
         ip = i + mp - j;
     }

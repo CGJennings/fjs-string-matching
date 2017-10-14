@@ -72,7 +72,7 @@ void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
                 ++i; ++j;
             }
             if( j == mp ) {
-                OUTPUT( i-mp );
+                output( i-mp );
                 ++i; ++j;
             }
             if( j <= 0 ) {
@@ -85,7 +85,7 @@ void FJS( const CTYPE* p, int m, const CTYPE* x, int n ) {
                 ++i; ++j;
             }
             if( j == m ) {
-                OUTPUT( i-m );
+                output( i-m );
             }
             j = beta[j];
         }

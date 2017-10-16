@@ -22,13 +22,13 @@ The Java implementation returns matches as an `IntStream`, making it suitable fo
 
 When comparing string search algorithms, it is critical to distinguish between best-case performance and average-case performance. Virtually all searches you perform will be with "average-case" strings. This is because the worst-case strings involve searching for periodic patterns and texts, like searching for `aaab` in `aaaaaaaaaaaaaaaa`.
 
-###Knuth-Morris-Pratt (KMP) is usually slow
+### Knuth-Morris-Pratt (KMP) is usually slow
 
 If you have ever been disappointed by implementing the KMP algorithm you learned in school only to discover that it is *slower* than a simple, naïve implementation, you've been bitten by this difference. KMP performs well on worst-case strings, but on average-case strings it does pretty much the same thing the naïve algorithm does, just with more overhead. KMP is almost always the slowest algorithm you can choose for string search.
 
 ### Boyer-Moore (BM) and friends are usually fast
 
-Boyer-Moore is another algorithm you may have heard of. On average-case strings it will beat the pants off of KMP and the naïve algorithm. It is able to skip past parts of the string that can't possibly match, so it can often find matches in sublinear time. That is, where the naïve algorithm always looks at every letter in the text at least once, BM usually examines only a fraction of the text. However, in order to do this it must set up a table whose size is that of the alphabet used by the strings. So, with 8-bit ASCII characters it must set up a table with 2^8^=256 entries for each search. In order to beat the naïve algorithm, the text you are searching needs to be significantly longer than the size of this table before the setup cost will be worthwhile. This can be a problem when dealing with Unicode, which is often stored in memory using 16-bit characters. (There are [other issues](http://unicode.org/reports/tr15/) to consider when searching Unicode as well.)
+Boyer-Moore is another algorithm you may have heard of. On average-case strings it will beat the pants off of KMP and the naïve algorithm. It is able to skip past parts of the string that can't possibly match, so it can often find matches in sublinear time. That is, where the naïve algorithm always looks at every letter in the text at least once, BM usually examines only a fraction of the text. However, in order to do this it must set up a table whose size is that of the alphabet used by the strings. So, with 8-bit ASCII characters it must set up a table with 2^8=256 entries for each search. In order to beat the naïve algorithm, the text you are searching needs to be significantly longer than the size of this table before the setup cost will be worthwhile. This can be a problem when dealing with Unicode, which is often stored in memory using 16-bit characters. (There are [other issues](http://unicode.org/reports/tr15/) to consider when searching Unicode as well.)
 
 All of the above is only relevant when dealing with average-case strings, though. If you happen to feed it worst-case strings, you will get performance similar to the naïve algorithm.
 

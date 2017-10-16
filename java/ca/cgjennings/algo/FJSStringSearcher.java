@@ -46,13 +46,13 @@ public final class FJSStringSearcher implements StringSearcher {
         final int delta[] = makeDelta( p );
         final IntStream.Builder stream = IntStream.builder();
 
-        int mp = m - 1, np = n - 1, i = 0, ip = i + mp, j = 0;
+        int mp = m-1, np = n-1, i = 0, ip = i+mp, j = 0;
 
         outer:
         while( ip < np ) {
             if( j <= 0 ) {
-                while( p.charAt( mp ) != x.charAt( ip ) ) {
-                    ip += delta[x.charAt( ip + 1 ) & HASH_MASK];
+                while( p.charAt(mp) != x.charAt(ip) ) {
+                    ip += delta[x.charAt(ip+1) & HASH_MASK];
                     if( ip >= np ) {
                         break outer;
                     }

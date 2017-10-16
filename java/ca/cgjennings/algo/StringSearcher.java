@@ -8,21 +8,22 @@ import java.util.stream.IntStream;
  * the pattern and text, including {@link String}s.
  *
  * <p>Empty strings are treated as matching at every possible index,
- * including the index after the last character in the text.
+ * including the index <em>after</em> the last character in the text.
  *
- * <p>This class has been set up so that implementations can easily be made
- * asynchronous, although that is not provided out of the box.
+ * <p>This class has been designed so that implementations can easily be made
+ * asynchronous, although such support is not provided out of the box.
  *
  * @author Christopher G. Jennings
  */
 public interface StringSearcher {
 	/**
-	 * Finds all matches of the pattern within the text and calls the specified
-	 * listener to report their locations.
+	 * Finds all matches of the pattern within the text. Each entry in the
+	 * returned {@code IntStream} is the index of one match. If the pattern
+	 * does not occur in the text, an empty stream is returned.
 	 *
 	 * @param pattern the pattern to search for
 	 * @param text the text to search within
-	 * @return a stream of the indices at which a match was found
+	 * @return a stream of the indices at which matches was found
 	 */
 	IntStream findAll( CharSequence pattern, CharSequence text );
 }

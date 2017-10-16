@@ -123,11 +123,11 @@ public final class StringSearcherTests {
 			return "b";
 		}
 
-		String previous = fibostring( order - 1 );
+		String previous = fibostring( order-1 );
 		StringBuilder current = new StringBuilder( previous.length() * 2 );
 
-		for( int i = 0; i < previous.length(); ++i ) {
-			switch( previous.charAt( i ) ) {
+		for( int i=0; i < previous.length(); ++i ) {
+			switch( previous.charAt(i) ) {
 				case 'a':
 					current.append( "ab" );
 					break;
@@ -140,13 +140,13 @@ public final class StringSearcherTests {
 	}
 
 	/**
-	 * Returns a pseudorandom string of length {@code len} consisting of only the
-	 * letters 'a', 'b', and 'c'.
+	 * Returns a pseudorandom string of length {@code len} consisting of only
+	 * the letters 'a', 'b', and 'c'.
 	 */
 	private static String randstring( int len ) {
-		StringBuilder b = new StringBuilder( len );
-		char[] abc = new char[] {'a','b','c'};
-		for( int i = 0; i < len; ++i ) {
+		final StringBuilder b = new StringBuilder( len );
+		final char[] abc = new char[] {'a','b','c'};
+		for( int i=0; i < len; ++i ) {
 			b.append( abc[ rand.nextInt(3) ] );
 		}
 		return b.toString();

@@ -15,6 +15,9 @@ import java.util.stream.IntStream;
  */
 public final class FJSStringSearcher implements StringSearcher {
 
+	/**
+	 * Creates a new {@code StringSearcher} that uses the FJS algorithm.
+	 */
 	public FJSStringSearcher() {
 		// reused since it does not depend on pattern size
 		delta = new int[ ALPHABET_HASH_SIZE ];
@@ -39,6 +42,7 @@ public final class FJSStringSearcher implements StringSearcher {
 		}
 
 		final int beta[] = makeBeta(p);
+		@SuppressWarnings( "LocalVariableHidesMemberVariable" )
 		final int delta[] = makeDelta(p);
 		final IntStream.Builder stream = IntStream.builder();
 
@@ -108,6 +112,7 @@ public final class FJSStringSearcher implements StringSearcher {
      */
     private int[] makeDelta( CharSequence pattern ) {
         final int m = pattern.length();
+		@SuppressWarnings( "LocalVariableHidesMemberVariable" )
 		final int[] delta = this.delta;
 
 		Arrays.fill( delta, m+1 );

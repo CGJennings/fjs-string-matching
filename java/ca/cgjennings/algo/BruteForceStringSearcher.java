@@ -10,6 +10,14 @@ import java.util.stream.IntStream;
  * @author Christopher G. Jennings
  */
 public final class BruteForceStringSearcher implements StringSearcher {
+
+	/**
+	 * Creates a new {@code StringSearcher} that uses brute force to
+	 * find matches.
+	 */
+	public BruteForceStringSearcher() {
+	}
+
 	@Override
 	@SuppressWarnings( "empty-statement" )
 	public IntStream findAll( CharSequence p, CharSequence x ) {
@@ -19,7 +27,7 @@ public final class BruteForceStringSearcher implements StringSearcher {
 		int i, j;
 
 		for( j = 0; j <= n-m; ++j ) {
-			for( i = 0; i < m && p.charAt( i ) == x.charAt( i+j ); ++i );
+			for( i = 0; i < m && p.charAt(i) == x.charAt(i+j); ++i );
 			if( i >= p.length() ) {
 				stream.accept(j);
 			}

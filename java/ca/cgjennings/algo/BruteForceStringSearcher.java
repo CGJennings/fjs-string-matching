@@ -1,3 +1,4 @@
+/* See LICENSE.md for license details (MIT license). */
 package ca.cgjennings.algo;
 
 import java.util.stream.IntStream;
@@ -11,23 +12,22 @@ import java.util.stream.IntStream;
 public final class BruteForceStringSearcher implements StringSearcher {
 
     /**
-     * Creates a new {@code StringSearcher} that uses brute force to find
-     * matches.
+     * Creates a new {@code StringSearcher} that uses brute force to find matches.
      */
     public BruteForceStringSearcher() {
     }
 
     @Override
-    @SuppressWarnings( "empty-statement" )
-    public IntStream findAll( CharSequence p, CharSequence x ) {
+    @SuppressWarnings("empty-statement")
+    public IntStream findAll(CharSequence p, CharSequence x) {
         final int m = p.length(), n = x.length();
 
         final IntStream.Builder stream = IntStream.builder();
         int i, j;
 
-        for( j=0; j <= n-m; ++j ) {
-            for( i=0; i < m && p.charAt(i) == x.charAt(i+j); ++i );
-            if( i >= p.length() ) {
+        for (j = 0; j <= n - m; ++j) {
+            for (i = 0; i < m && p.charAt(i) == x.charAt(i + j); ++i);
+            if (i >= p.length()) {
                 stream.accept(j);
             }
         }

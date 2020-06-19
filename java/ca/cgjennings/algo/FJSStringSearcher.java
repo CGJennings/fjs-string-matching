@@ -1,3 +1,4 @@
+/* See LICENSE.md for license details (MIT license). */
 package ca.cgjennings.algo;
 
 import java.util.Arrays;
@@ -12,6 +13,8 @@ import java.util.stream.IntStream;
  * implementation (very rare in practice).
  *
  * @author Christopher G. Jennings
+ * @see <a href="https://cgjennings.ca/articles/fjs/">The FJS string matching
+ *      algorithm</a>
  */
 public final class FJSStringSearcher implements StringSearcher {
 
@@ -20,7 +23,7 @@ public final class FJSStringSearcher implements StringSearcher {
      */
     public FJSStringSearcher() {
         // reused since it does not depend on pattern size
-        delta = new int[ ALPHABET_HASH_SIZE ];
+        delta = new int[ALPHABET_HASH_SIZE];
     }
 
     // The hash size must be a power of 2; typical texts may not see a speedup
@@ -30,56 +33,55 @@ public final class FJSStringSearcher implements StringSearcher {
     private final int[] delta;
 
     @Override
-    public IntStream findAll( CharSequence p, CharSequence x ) {
+    public IntStream findAll(CharSequence p, CharSequence x) {
         final int n = x.length();
         final int m = p.length();
 
-        if( m == 0 ) {
-            return IntStream.rangeClosed( 0, n );
+        if (m == 0) {
+            return IntStream.rangeClosed(0, n);
         }
-        if( m > n ) {
+        if (m > n) {
             return IntStream.empty();
         }
 
-        final int beta[] = makeBeta( p );
-        @SuppressWarnings( "LocalVariableHidesMemberVariable" )
-        final int delta[] = makeDelta( p );
+        final int beta[] = makeBeta(p);
+        @SuppressWarnings("LocalVariableHidesMemberVariable")
+        final int delta[] = makeDelta(p);
         final IntStream.Builder stream = IntStream.builder();
 
-        int mp = m-1, np = n-1, i = 0, ip = i+mp, j = 0;
+        int mp = m - 1, np = n - 1, i = 0, ip = i + mp, j = 0;
 
-        outer:
-        while( ip < np ) {
-            if( j <= 0 ) {
-                while( p.charAt(mp) != x.charAt(ip) ) {
-                    ip += delta[x.charAt(ip+1) & HASH_MASK];
-                    if( ip >= np ) {
+        outer: while (ip < np) {
+            if (j <= 0) {
+                while (p.charAt(mp) != x.charAt(ip)) {
+                    ip += delta[x.charAt(ip + 1) & HASH_MASK];
+                    if (ip >= np) {
                         break outer;
                     }
                 }
                 j = 0;
                 i = ip - mp;
-                while( (j < mp) && (x.charAt(i) == p.charAt(j)) ) {
+                while ((j < mp) && (x.charAt(i) == p.charAt(j))) {
                     ++i;
                     ++j;
                 }
-                if( j == mp ) {
-                    stream.accept( i-mp );
+                if (j == mp) {
+                    stream.accept(i - mp);
                     ++i;
                     ++j;
                 }
-                if( j <= 0 ) {
+                if (j <= 0) {
                     ++i;
                 } else {
                     j = beta[j];
                 }
             } else {
-                while( (j < m) && (x.charAt(i) == p.charAt(j)) ) {
+                while ((j < m) && (x.charAt(i) == p.charAt(j))) {
                     ++i;
                     ++j;
                 }
-                if( j == m ) {
-                    stream.accept( i-m );
+                if (j == m) {
+                    stream.accept(i - m);
                 }
                 j = beta[j];
             }
@@ -87,17 +89,17 @@ public final class FJSStringSearcher implements StringSearcher {
         }
 
         // check final alignment p[0..m-1] == x[n-m..n-1]
-        if( ip == np ) {
-            if( j < 0 ) {
+        if (ip == np) {
+            if (j < 0) {
                 j = 0;
             }
             i = n - m + j;
-            while( j < m && x.charAt(i) == p.charAt(j) ) {
+            while (j < m && x.charAt(i) == p.charAt(j)) {
                 ++i;
                 ++j;
             }
-            if( j == m ) {
-                stream.accept( n-m );
+            if (j == m) {
+                stream.accept(n - m);
             }
         }
 
@@ -109,17 +111,17 @@ public final class FJSStringSearcher implements StringSearcher {
      *
      * @param pattern the search pattern
      */
-    private int[] makeDelta( CharSequence pattern ) {
+    private int[] makeDelta(CharSequence pattern) {
         final int m = pattern.length();
-        @SuppressWarnings( "LocalVariableHidesMemberVariable" )
+        @SuppressWarnings("LocalVariableHidesMemberVariable")
         final int[] delta = this.delta;
 
-        Arrays.fill( delta, m + 1 );
-        for( int i=0; i < m; ++i ) {
+        Arrays.fill(delta, m + 1);
+        for (int i = 0; i < m; ++i) {
             final char ch = pattern.charAt(i);
             final int slot = ch & HASH_MASK;
             final int jump = m - i;
-            if( jump < delta[slot] ) {
+            if (jump < delta[slot]) {
                 delta[slot] = jump;
             }
         }
@@ -132,19 +134,19 @@ public final class FJSStringSearcher implements StringSearcher {
      * @param pattern the search pattern
      * @return a new β′ array based on the borders of the pattern
      */
-    private int[] makeBeta( CharSequence pattern ) {
+    private int[] makeBeta(CharSequence pattern) {
         final int m = pattern.length();
-        final int[] beta = new int[ m + 1 ];
+        final int[] beta = new int[m + 1];
         int i = 0, j = beta[0] = -1;
 
-        while( i < m ) {
-            while( (j > -1) && (pattern.charAt(i) != pattern.charAt(j)) ) {
+        while (i < m) {
+            while ((j > -1) && (pattern.charAt(i) != pattern.charAt(j))) {
                 j = beta[j];
             }
 
             ++i;
             ++j;
-            if( (i < m) && (pattern.charAt(i) == pattern.charAt(j)) ) {
+            if ((i < m) && (pattern.charAt(i) == pattern.charAt(j))) {
                 beta[i] = beta[j];
             } else {
                 beta[i] = j;

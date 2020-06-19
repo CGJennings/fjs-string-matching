@@ -4,7 +4,7 @@
 
 String search algorithms find occurrences of a pattern string in a text, like the search feature of a text editor. The FJS (Franek-Jennings-Smyth) algorithm is the fastest known string search algorithm under a wide variety of conditions. It combines the linear-time worst case guarantee of the well-known KMP (Knuth-Morris-Pratt) algorithm with the fast average-case performance of the BMS (Boyer-Moore-Sunday) algorithm.
 
-[More information, including an interactive visualization.](https://cgjennings.ca/articles/fjs.html)
+[More information, including an interactive visualization.](https://cgjennings.ca/articles/fjs/)
 
 ## The sample code
 
@@ -12,7 +12,7 @@ Sample implementations are currently provided in C and Java. Both implementation
 
 ### c/
 
-The C implementation is meant as a starting point that you can customize to suit your specific needs. Note that it is also based on 8-bit characters. For wider characters you might want to adapt the simple hash strategy demonstrated by the Java code to improve performance on short texts. Another option is to process the string as 8-bit characters and ignore spurious matches. For example, cast pointers to 16-bit character strings to byte array pointers and then ignore "matches" that start at an odd offset.
+The C implementation is meant as a starting point that you can customize to suit your specific needs. Note that it is also based on 8-bit characters. For wider characters you might want to adapt the simple hash strategy demonstrated by the Java code to improve performance on short texts. Another option is to process the string as 8-bit characters and ignore spurious matches. For example, cast pointers to 16-bit character strings to byte array pointers and then ignore "matches" that start on odd offsets.
 
 ### java/
 

@@ -1,3 +1,4 @@
+/* See LICENSE.md for license details (MIT license). */
 package ca.cgjennings.algo;
 
 import java.util.stream.IntStream;
@@ -19,13 +20,13 @@ import java.util.stream.IntStream;
  */
 public interface StringSearcher {
     /**
-     * Finds all matches of the pattern within the text. Each entry in the
-     * returned {@code IntStream} is the index of one match. If the pattern does
-     * not occur in the text, an empty stream is returned.
+     * Finds all matches of the pattern within the text. Each entry in the returned
+     * {@code IntStream} is the index of one match. If the pattern does not occur in
+     * the text, an empty stream is returned.
      *
      * @param pattern the pattern to search for
-     * @param text the text to search within
+     * @param text    the text to search within
      * @return a stream of the indices at which matches was found
      */
-    IntStream findAll( CharSequence pattern, CharSequence text );
+    IntStream findAll(CharSequence pattern, CharSequence text);
 }

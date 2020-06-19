@@ -3,7 +3,7 @@
 
    FJS is a very fast algorithm for finding every occurrence
    of a string p of length m in a string x of length n.
-   For details see <https://cgjennings.ca/articles/fjs.html>.
+   For details see <https://cgjennings.ca/articles/fjs/>.
 
    Christopher G. Jennings.
    See LICENSE.md for license details (MIT license).
